@@ -54,8 +54,16 @@ class Lecturer(Mentor):
         self.courses_attached = []  # Курсы преподавателя
         self.grades = {}
 
+
     def __str__(self):
         return f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за лекции: {self.medium_grades()}'
+
+# сравнение лекторов по средней оценке
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            print('Не можем сравнить!')
+            return
+        return self.medium_grades() < other.medium_grades()
 
     def medium_grades(self):
         sum = 0
@@ -85,6 +93,8 @@ class Reviewer(Mentor):
             return 'Ошибка'
     def __str__(self):
         return f'Имя: {self.name} \n Фамилия: {self.surname} \n'
+
+
 # студент_1
 first_student = Student('Ruoy', 'Eman', 'boy')
 first_student.courses_in_progress += ['Python']
@@ -121,10 +131,8 @@ print(second_reviewer, '\n')
 print(second_lecturer, '\n')
 print(first_student, '\n')
 
-print(first_student.grades)
-print(second_lecturer.grades)
-
-
+print(first_lecturer < second_lecturer)
+print(second_lecturer < first_lecturer)
 
 
 
